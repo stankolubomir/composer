@@ -838,7 +838,7 @@ EOT
         }
 
         // handle auth
-        if (Preg::isMatch('/^(bitbucket-oauth|github-oauth|gitlab-oauth|gitlab-token|http-basic|bearer)\.(.+)/', $settingKey, $matches)) {
+        if (Preg::isMatch('/^(bitbucket-oauth|github-oauth|gitlab-oauth|gitlab-token|http-basic|http-custom-headers|bearer)\.(.+)/', $settingKey, $matches)) {
             if ($input->getOption('unset')) {
                 $this->authConfigSource->removeConfigSetting($matches[1].'.'.$matches[2]);
                 $this->configSource->removeConfigSetting($matches[1].'.'.$matches[2]);
@@ -867,6 +867,19 @@ EOT
                 }
                 $this->configSource->removeConfigSetting($matches[1].'.'.$matches[2]);
                 $this->authConfigSource->addConfigSetting($matches[1].'.'.$matches[2], ['username' => $values[0], 'password' => $values[1]]);
+            } elseif ($matches[1] === 'http-custom-headers') {
+                if (1 !== count($values)) {
+                    throw new \RuntimeException('Expected one argument (JSON array of headers), got '.count($values));
+                }
+                $headers = json_decode($values[0], true);
+                if (null === $headers && json_last_error() !== JSON_ERROR_NONE) {
+                    throw new \RuntimeException('Invalid JSON provided for http-custom-headers: ' . json_last_error_msg());
+                }
+                if (!is_array($headers)) {
+                    throw new \RuntimeException('Expected an array of headers, got '.gettype($headers));
+                }
+                $this->configSource->removeConfigSetting($matches[1].'.'.$matches[2]);
+                $this->authConfigSource->addConfigSetting($matches[1].'.'.$matches[2], $headers);
             }
 
             return 0;
