@@ -342,8 +342,10 @@ class AuthHelperTest extends TestCase
             'API-TOKEN: abc123',
             'X-CUSTOM-HEADER: value'
         ];
+        $headersJson = json_encode($customHeaders);
+        // Ensure we have a string, not false from json_encode failure
         $auth = [
-            'username' => json_encode($customHeaders),
+            'username' => $headersJson !== false ? $headersJson : null,
             'password' => 'custom-headers',
         ];
 

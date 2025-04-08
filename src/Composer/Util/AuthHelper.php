@@ -240,7 +240,10 @@ class AuthHelper
                 $headers[] = 'Authorization: Bearer '.$auth['username'];
             } elseif ($auth['password'] === 'custom-headers') {
                 // Handle custom HTTP headers from auth.json
-                $customHeaders = json_decode($auth['username'], true);
+                $customHeaders = null;
+                if (is_string($auth['username'])) {
+                    $customHeaders = json_decode($auth['username'], true);
+                }
                 if (is_array($customHeaders)) {
                     foreach ($customHeaders as $header) {
                         $headers[] = $header;

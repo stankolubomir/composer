@@ -175,7 +175,9 @@ abstract class BaseIO implements IOInterface
 
         // load custom HTTP headers from config
         foreach ($httpCustomHeaders as $domain => $headers) {
-            $this->checkAndSetAuthentication($domain, json_encode($headers), 'custom-headers');
+            if ($headers !== null) {
+                $this->checkAndSetAuthentication($domain, (string) json_encode($headers), 'custom-headers');
+            }
         }
 
         // setup process timeout
