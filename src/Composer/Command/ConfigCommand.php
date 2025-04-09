@@ -868,7 +868,7 @@ EOT
                 $this->configSource->removeConfigSetting($matches[1].'.'.$matches[2]);
                 $this->authConfigSource->addConfigSetting($matches[1].'.'.$matches[2], ['username' => $values[0], 'password' => $values[1]]);
             } elseif ($matches[1] === 'custom-headers') {
-                if (empty($values)) {
+                if (count($values) === 0) {
                     throw new \RuntimeException('Expected at least one header, got none');
                 }
 
