@@ -869,7 +869,7 @@ EOT
                 $this->authConfigSource->addConfigSetting($matches[1].'.'.$matches[2], ['username' => $values[0], 'password' => $values[1]]);
             } elseif ($matches[1] === 'custom-headers') {
                 if (count($values) === 0) {
-                    throw new \RuntimeException('Expected at least one header, got none');
+                    throw new \RuntimeException('Expected at least one argument (header), got none');
                 }
 
                 // Validate headers format
