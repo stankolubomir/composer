@@ -202,24 +202,24 @@ php composer.phar config [--global] --editor --auth
 }
 ```
 
-## http-custom-headers
+## custom-headers
 
 Use custom HTTP headers for authentication with private repositories that require header-based authentication.
 
-### Command line http-custom-headers
+### Command line custom-headers
 
 ```shell
-php composer.phar config [--global] http-custom-headers.example.org '["API-TOKEN: YOUR-API-TOKEN", "X-CUSTOM-HEADER: Value"]'
+php composer.phar config [--global] custom-headers.example.org "API-TOKEN: YOUR-API-TOKEN" "X-CUSTOM-HEADER: Value"
 ```
 
-In the above command, the config key `http-custom-headers.example.org` consists of two parts:
+In the above command, the config key `custom-headers.example.org` consists of two parts:
 
-- `http-custom-headers` is the authentication method.
+- `custom-headers` is the authentication method.
 - `example.org` is the repository host name, you should replace it with the host name of your repository.
 
-The value must be a valid JSON array of header strings, where each header is in the format `"Header-Name: Header-Value"`.
+You can provide multiple custom headers as separate arguments. Each header must be in the standard HTTP header format `"Header-Name: Header-Value"`.
 
-### Manual http-custom-headers
+### Manual custom-headers
 
 ```shell
 php composer.phar config [--global] --editor --auth
@@ -227,7 +227,7 @@ php composer.phar config [--global] --editor --auth
 
 ```json
 {
-    "http-custom-headers": {
+    "custom-headers": {
         "example.org": [
             "API-TOKEN: YOUR-API-TOKEN",
             "X-CUSTOM-HEADER: Value"
@@ -236,11 +236,11 @@ php composer.phar config [--global] --editor --auth
 }
 ```
 
-## Inline http-custom-headers
+## Inline custom-headers
 
-### Manual inline http-custom-headers
+### Manual inline custom-headers
 
-For the inline http-custom-headers authentication method, the custom headers are defined directly
+For the inline custom-headers authentication method, the custom headers are defined directly
 in your `composer.json` file as part of the repository configuration.
 
 ```shell

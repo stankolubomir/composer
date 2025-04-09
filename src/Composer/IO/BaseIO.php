@@ -121,7 +121,7 @@ abstract class BaseIO implements IOInterface
         $gitlabToken = $config->get('gitlab-token');
         $httpBasic = $config->get('http-basic');
         $bearerToken = $config->get('bearer');
-        $httpCustomHeaders = $config->get('http-custom-headers');
+        $customHeaders = $config->get('custom-headers');
 
         // reload oauth tokens from config if available
 
@@ -174,7 +174,7 @@ abstract class BaseIO implements IOInterface
         }
 
         // load custom HTTP headers from config
-        foreach ($httpCustomHeaders as $domain => $headers) {
+        foreach ($customHeaders as $domain => $headers) {
             if ($headers !== null) {
                 $this->checkAndSetAuthentication($domain, (string) json_encode($headers), 'custom-headers');
             }
