@@ -880,7 +880,7 @@ EOT
                     }
 
                     // Check if the header is in correct "Name: Value" format
-                    if (!Preg::isMatch('/^([^:]+):\s*(.+)$/', $header, $headerParts)) {
+                    if (!Preg::isMatch('/^[^:]+:\s*.+$/', $header, $headerParts)) {
                         throw new \RuntimeException('Header "' . $header . '" is not in "Header-Name: Header-Value" format');
                     }
 
